@@ -32,4 +32,4 @@ jobs:
         name: Resources 
         template: resources.yml
         no-fail-on-empty-changeset: "1"
-        parameter-overrides: file:///params.json
+        parameter-overrides: file://params.json
