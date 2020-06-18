@@ -1,9 +1,13 @@
+Parameters: 
+  MessageSNSTopicName: 
+    Type: String
+    Default: message
 Resources:
   MessageSNSTopic:
     Type: AWS::SNS::Topic
     Properties:
-      DisplayName: 'message'
-      TopicName: 'message'
+      DisplayName: !Ref MessageSNSTopicName
+      TopicName: !Ref MessageSNSTopicName
       Subscription:
         - Endpoint: !GetAtt MessageSQSQueue.Arn
           Protocol: 'sqs'
