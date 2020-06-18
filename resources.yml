@@ -1,0 +1,20 @@
+Resources:
+  MessageSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: 'message'
+      TopicName: 'message'
+      Subscription:
+        - Endpoint: !GetAtt MessageSQSQueue.Arn
+          Protocol: 'sqs'
+  MessageSQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: 'message'
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt MessageDeadletterSQSQueue.Arn
+        maxReceiveCount: 3
+  MessageDeadletterSQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: 'message-deadletter'
